@@ -1,3 +1,5 @@
 Lista dei comandi:
 
+/help - elenco dei comandi
 /citazione - una citazione casuale
+/manifesto - link al Manifesto del Partito Comunista

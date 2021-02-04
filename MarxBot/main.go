@@ -58,6 +58,19 @@ func main() {
 		c.SendMessage(m.Chat.ID, helpfile)
 	})
 
+	bot.HandleMessage("/help", func(m *tbot.Message) {
+		c.SendChatAction(m.Chat.ID, tbot.ActionTyping)
+		time.Sleep(1 * time.Second)
+		helpfile := readFile("help.txt")
+		c.SendMessage(m.Chat.ID, helpfile)
+	})
+
+	bot.HandleMessage("/manifesto", func(m *tbot.Message) {
+		c.SendChatAction(m.Chat.ID, tbot.ActionTyping)
+		time.Sleep(1 * time.Second)
+		c.SendMessage(m.Chat.ID, "https://www.marxists.org/italiano/marx-engels/1848/manifesto/index.htm")
+	})
+
 	err := bot.Start()
 	if err != nil {
 		log.Fatal(err)
