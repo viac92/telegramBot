@@ -2,6 +2,8 @@
 package main
 
 import (
+	"strconv"
+	"bufio"
 	"log"
 	"os"
 	"time"
@@ -10,6 +12,21 @@ import (
 	"github.com/yanzay/tbot"
 )
 
+// radFile legge un file e restituisce una stringa contenente il contenuto
+func readFile(fileName string) string {
+	var stringOut string
+
+	f,_ := os.Open(fileName)
+	scanner := bufio.NewScanner(f)
+
+	for scanner.Scan() {
+			stringOut += scanner.Text() + "\n"
+
+	}
+
+	return stringOut
+}
+
 
 
 func main() {
@@ -17,38 +34,33 @@ func main() {
 	bot := tbot.New(os.Getenv("TELEGRAM_TOKEN"))
 	c := bot.Client()
 	
-	bot.HandleMessage("/priviet", func(m *tbot.Message) {
+	bot.HandleMessage("/citazione", func(m *tbot.Message) {
 		c.SendChatAction(m.Chat.ID, tbot.ActionTyping)
 		time.Sleep(1 * time.Second)
 		rand.Seed(time.Now().UnixNano())
-		r := rand.Intn(11)
-		
+		r := rand.Intn(3)
+		rS := strconv.Itoa(r)
+
 		switch r {
 		case 0:
-			quote = "The oppressed are allowed once every few years to decide which particular representatives of the oppressing class are to represent and repress them."
+			quote = readFile("./Citazioni/"+rS)
 		case 1:
-			quote = "The philosophers have only interpreted the world, in various ways. The point, however, is to change it."
-		case 2: 
-			quote = "Surround yourself with people who make you happy.\nPeople who make you laugh, who help you when you’re in need.\nPeople who genuinely care.\nThey are the ones worth keeping in your life.\nEveryone else is just passing through."	
-		case 3:
-			quote = "The last capitalist we hang shall be the one who sold us the rope."
-		case 4:
-			quote = "Let the ruling classes tremble at a Communistic revolution.\nThe proletarians have nothing to lose but their chains. They have a world to win."
-		case 5:
-			quote = "Workingmen of all countries unite!"
-		case 6:
-			quote = "Reason has always existed, but not always in a reasonable form."
-		case 7:
-			quote = "Go on, get out! Last words are for fools who haven't said enough!"
-		case 8:
-			quote = "To be radical is to grasp things by the root."
-		case 9:
-			quote = "The proletarians have nothing to loose but their chains.\nThey have a world to win."
-		case 10:
-			quote = "In proportion therefore, as the repulsiveness of the work increases, the wage decreases."
+			quote = readFile("./Citazioni/"+rS)
+		case 2:
+			quote = readFile("./Citazioni/"+rS)
 		}
+
 		c.SendMessage(m.Chat.ID, quote)
 	})
+
+	bot.HandleMessage("/help", func(m *tbot.Message) {
+		c.SendChatAction(m.Chat.ID, tbot.ActionTyping)
+		time.Sleep(1 * time.Second)
+		helpfile := readFile("help.txt")
+		c.SendMessage(m.Chat.ID, helpfile)
+	})
+
+
 	err := bot.Start()
 	if err != nil {
 		log.Fatal(err)
