@@ -27,8 +27,6 @@ func readFile(fileName string) string {
 	return stringOut
 }
 
-
-
 func main() {
 	var quote string
 	bot := tbot.New(os.Getenv("TELEGRAM_TOKEN"))
@@ -59,7 +57,6 @@ func main() {
 		helpfile := readFile("help.txt")
 		c.SendMessage(m.Chat.ID, helpfile)
 	})
-
 
 	err := bot.Start()
 	if err != nil {
