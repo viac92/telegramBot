@@ -1,4 +1,3 @@
-// make a marxist bot for all comrades
 package main
 
 import (
@@ -32,39 +31,28 @@ func main() {
 	bot := tbot.New(os.Getenv("TELEGRAM_TOKEN"))
 	c := bot.Client()
 	
+	// il comando /help restituisce la lista dei comandi disponibili
+	bot.HandleMessage("/help", func(m *tbot.Message) {
+		c.SendChatAction(m.Chat.ID, tbot.ActionTyping)
+		time.Sleep(1 * time.Second)
+		helpfile := readFile("help.txt")
+		c.SendMessage(m.Chat.ID, helpfile)
+	})
+	
+	//il comando /citazione restitutisce una citazione casuale di Marx
 	bot.HandleMessage("/citazione", func(m *tbot.Message) {
 		c.SendChatAction(m.Chat.ID, tbot.ActionTyping)
 		time.Sleep(1 * time.Second)
 		rand.Seed(time.Now().UnixNano())
-		r := rand.Intn(3)
+		r := rand.Intn(22)
 		rS := strconv.Itoa(r)
 
-		switch r {
-		case 0:
-			quote = readFile("./Citazioni/"+rS)
-		case 1:
-			quote = readFile("./Citazioni/"+rS)
-		case 2:
-			quote = readFile("./Citazioni/"+rS)
-		}
+		quote = readFile("./Citazioni/"+rS)
 
 		c.SendMessage(m.Chat.ID, quote)
 	})
 
-	bot.HandleMessage("/help", func(m *tbot.Message) {
-		c.SendChatAction(m.Chat.ID, tbot.ActionTyping)
-		time.Sleep(1 * time.Second)
-		helpfile := readFile("help.txt")
-		c.SendMessage(m.Chat.ID, helpfile)
-	})
-
-	bot.HandleMessage("/help", func(m *tbot.Message) {
-		c.SendChatAction(m.Chat.ID, tbot.ActionTyping)
-		time.Sleep(1 * time.Second)
-		helpfile := readFile("help.txt")
-		c.SendMessage(m.Chat.ID, helpfile)
-	})
-
+	// il comando /manifesto restituisce il link al manifesto del pc su marxists.org
 	bot.HandleMessage("/manifesto", func(m *tbot.Message) {
 		c.SendChatAction(m.Chat.ID, tbot.ActionTyping)
 		time.Sleep(1 * time.Second)
