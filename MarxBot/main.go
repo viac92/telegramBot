@@ -59,6 +59,13 @@ func main() {
 		c.SendMessage(m.Chat.ID, "https://www.marxists.org/italiano/marx-engels/1848/manifesto/index.htm")
 	})
 
+	// il  comando /iniziamo fornisce un link alla documentazione di base sul pensiero Marxista
+	bot.HandleMessage("/didattica", func(m *tbot.Message) {
+		c.SendChatAction(m.Chat.ID, tbot.ActionTyping)
+		time.Sleep(1 * time.Second)
+		c.SendMessage(m.Chat.ID, "https://www.marxists.org/italiano/sezione/studenti/index.htm")
+	})
+
 	err := bot.Start()
 	if err != nil {
 		log.Fatal(err)
