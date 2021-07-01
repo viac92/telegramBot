@@ -78,7 +78,6 @@ func moltiplica(s string) string {
 			}
 			continue
 		}
-
 		strOut += string(rSli[i])
 	}	
 	return strOut
