@@ -91,6 +91,8 @@ func main() {
 	bot := tbot.New(os.Getenv("TELEGRAM_TOKEN2"))
 	c := bot.Client()
 
+	var kaffe int
+
 	bot.HandleMessage("kaffe .+", func(m *tbot.Message) {
 		text := strings.TrimPrefix(m.Text, "kaffe ")
 		nuovaFrase := moltiplica(sostituisciCconK(cammello(text)))
@@ -98,6 +100,8 @@ func main() {
 		time.Sleep(1 * time.Second)
 		
 		c.SendMessage(m.Chat.ID, nuovaFrase)
+		kaffe++
+		fmt.Printf("Kaffe bevuti: %d", kaffe)
 	})
 
 	err := bot.Start()
