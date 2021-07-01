@@ -54,7 +54,7 @@ func main() {
 		c.SendChatAction(m.Chat.ID, tbot.ActionTyping)
 		time.Sleep(1 * time.Second)
 		rand.Seed(time.Now().UnixNano())
-		r := rand.Intn(22)
+		r := rand.Intn(21)
 		rS := strconv.Itoa(r)
 
 		quote = readFile("./Citazioni/"+rS)
