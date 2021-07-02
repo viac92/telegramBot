@@ -101,7 +101,7 @@ func main() {
 		
 		c.SendMessage(m.Chat.ID, nuovaFrase)
 		kaffe++
-		fmt.Printf("Kaffe bevuti: %d", kaffe)
+		fmt.Printf("Kaffe bevuti: %d\n", kaffe)
 	})
 
 	err := bot.Start()
