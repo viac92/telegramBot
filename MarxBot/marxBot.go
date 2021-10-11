@@ -20,7 +20,7 @@ func readFile(fileName string) string {
 	scanner := bufio.NewScanner(f)
 
 	for scanner.Scan() {
-			stringOut += scanner.Text() + "\n"
+		stringOut += scanner.Text() + "\n"
 	}
 
 	return stringOut
